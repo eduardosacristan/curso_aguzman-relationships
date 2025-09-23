@@ -1,9 +1,12 @@
 package com.andres.cursospringboot.jpa.springboot_jpa_relationship.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,7 +19,10 @@ public class Client {
 
     private String name;
     private String lastname;
- 
+
+    @OneToMany
+    private List<Invoice> invoices;
+
     public Client() {
     }
 
@@ -43,4 +49,18 @@ public class Client {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", invoices=" + invoices + "]";
+    }
+
 }
