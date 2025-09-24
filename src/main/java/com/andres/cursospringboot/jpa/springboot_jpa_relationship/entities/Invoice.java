@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -18,12 +19,11 @@ public class Invoice {
     private String description;
     private Long total;
 
-    @ManyToOne // muchas facturas a un cliente truco:la primera parte va dirigida a la clase
-               // actual
+    @ManyToOne // muchas facturas a un cliente truco:la primera parte va dirigida a la clase actual            
+    @JoinColumn(name = "id_cliente")   //Para crear el nombre de la clave foránea mayormente
     private Client client;
 
-    public Invoice(Long id, String description, Long total) {
-        this.id = id;
+    public Invoice(String description, Long total) {
         this.description = description;
         this.total = total;
     }
@@ -65,6 +65,6 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice [id=" + id + ", description=" + description + ", total=" + total + ", client=" + client + "]";
+        return "Invoice [id=" + id + ", description=" + description + ", total=" + total + "]";
     }
 }

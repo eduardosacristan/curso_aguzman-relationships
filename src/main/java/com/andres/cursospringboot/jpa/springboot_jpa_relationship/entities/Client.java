@@ -1,7 +1,9 @@
 package com.andres.cursospringboot.jpa.springboot_jpa_relationship.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,10 +22,17 @@ public class Client {
     private String name;
     private String lastname;
 
-    @OneToMany
-    private List<Invoice> invoices;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> adresses;
+   
+    public Client(String name, String lastname) {
+        this(); //Llama al constructor vacío para que instancie la lista
+        this.name = name;
+        this.lastname = lastname;
+    }
 
     public Client() {
+        adresses = new ArrayList<>();
     }
 
     public String getName() {
@@ -50,17 +59,17 @@ public class Client {
         this.id = id;
     }
 
-    public List<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
     @Override
     public String toString() {
-        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", invoices=" + invoices + "]";
+        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + adresses + "]";
+    }
+
+    public List<Address> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<Address> adresses) {
+        this.adresses = adresses;
     }
 
 }
